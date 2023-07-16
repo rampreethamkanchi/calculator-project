@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramu's Calculator</title>
+    <style>
+        .all{
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        #body{
+            width: 500px;
+            display: grid;
+            grid-template-columns: repeat(4,auto);
+            grid-template-rows: repeat(6,auto);
+            margin:auto;
+            margin-top: 10vh;
+            grid-gap: 0.5rem;
+            border: 10px solid black;
+            border-radius: 1rem;
+            box-shadow: 1rem grey;
+            padding: 1rem;
+            background-color: black;
+        }
+        .element{
+            border: 2px solid black;
+            padding: 1rem;
+            cursor: pointer;
+            background-color: white;
+            border-radius: 1rem;
+        }
+        #element1{
+            grid-column-start: 1;
+            grid-column-end: 5;
+            padding: 2rem;
+            text-align: right;
+            cursor: not-allowed;
+            font-weight: 500;
+            height: 3rem;
+            font-size: 3rem;
+            /* opacity: 0; */
+        }
+        #element2{
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+        #element17{
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="all" id="body">
+        <div class="element" id="element1"></div>
+        <div class="element" id="element2">C</div>
+        <div class="element" id="element3">Back</div>
+        <div class="element" id="element4">/</div>
+        <div class="element" id="element5">7</div>
+        <div class="element" id="element6">8</div>
+        <div class="element" id="element7">9</div>
+        <div class="element" id="element8">x</div>
+        <div class="element" id="element9">4</div>
+        <div class="element" id="element10">5</div>
+        <div class="element" id="element11">6</div>
+        <div class="element" id="element12">-</div>
+        <div class="element" id="element13">1</div>
+        <div class="element" id="element14">2</div>
+        <div class="element" id="element15">3</div>
+        <div class="element" id="element16">+</div>
+        <div class="element" id="element17">0</div>
+        <div class="element" id="element18">.</div>
+        <div class="element" id="element19">=</div>
+    </div>
+    <script>
+        let res=0;
+        let t=0;
+        let arr=[];
+        let divf=0;
+        let mulf=0;
+        let addf=0;
+        let subf=0;
+        let t1=0;
+        let j;
+        let flag=0;
+         let zero= document.getElementById("element17");
+         let one= document.getElementById("element13");
+         let two= document.getElementById("element14");
+         let three= document.getElementById("element15");
+         let four= document.getElementById("element9");
+         let five= document.getElementById("element10");
+         let six= document.getElementById("element11");
+         let seven= document.getElementById("element5");
+         let eight= document.getElementById("element6");
+         let nine= document.getElementById("element7");
+         let plus = document.getElementById("element16");
+         let minus = document.getElementById("element12");
+         let multiply = document.getElementById("element8");
+         let divide = document.getElementById("element4");
+        let display= document.getElementById("element1");
+        let equal= document.getElementById("element19");
+        let C= document.getElementById("element2");
+        let back = document.getElementById("element3");
+        one.addEventListener('click',()=>{
+            display.innerHTML+=1;
+            arr.push(1);
+        });
+        plus.addEventListener('click',()=>{
+            display.innerHTML+='+';
+            arr.push("+");
+        })
+        minus.addEventListener('click',()=>{
+            display.innerHTML+='-';
+            arr.push("-");
+        })
+        multiply.addEventListener('click',()=>{
+            display.innerHTML+='x';
+            arr.push("x");
+        })
+        divide.addEventListener('click',()=>{
+            display.innerHTML+='/';
+            arr.push("/");
+        })
+        let plusc=0;
+        let minusc=0;
+        let multiplyc=0;
+        let dividec=0;
+
+        equal.addEventListener('click',()=>{
+            for(let i=0;i<arr.length;i++){
+                if(arr[i]=='+') plusc++;
+                if(arr[i]=='-') minusc++;
+                if(arr[i]=='x') multiplyc++;
+                if(arr[i]=='/') dividec++;
+            }
+            for(let q=0;q<dividec;q++){
+                var n1c=0;
+                var n2c=0;
+                var n1=0;
+                var n2=0;
+            for(let i=0;i<arr.length;i++){
+                if(arr[i]=="/"){
+                    divf=1;
+                    j=i;
+                    break;
+                }
+            }
+            for(let w=0;(j-w!=0) && arr[j-w-1]!="+" && arr[j-w-1]!="-" && arr[j-w-1]!="*" && arr[j-w-1]!="/";w++){
+                n1+=(arr[j-w-1]*(Math.pow(10,w))); n1c++;
+            }
+            for(let w=0;j+w!=(arr.length-1)&& arr[j+w+1]!="+" && arr[j+w+1]!="-" && arr[j+w+1]!="*" && arr[j+w+1]!="/";w++){
+                n2+=(arr[j+w+1]);
+                n2*=10;
+                n2c++;
+            }
+            n2/=10;
+            if(divf==1){ 
+                t=(n1/n2);
+                t1=t;
+                arr.splice(j-n1c,n1c+n2c+1);
+                for(let e=0;t>0;e++){
+                    arr.splice(j-n1c,0,t%10);
+                    t=Math.floor(t/10);
+                }
+            }
+            j=0; divf=0;
+        }
+        for(let q=0;q<multiplyc;q++){
+            var n1c=0;
+                var n2c=0;
+                var n1=0;
+                var n2=0;
+            for(let i=0;i<arr.length;i++){
+                if(arr[i]=="x"){
+                    mulf=1;
+                    j=i;
+                    break;
+                }
+            }
+            for(let w=0;j-w!=0 && arr[j-w-1]!="+" && arr[j-w-1]!="-" && arr[j-w-1]!="*" && arr[j-w-1]!="/";w++){
+                n1+=(arr[j-w-1]*(Math.pow(10,w))); n1c++;
+            }
+            for(let w=0;j+w!=(arr.length-1)&& arr[j+w+1]!="+" && arr[j+w+1]!="-" && arr[j+w+1]!="*" && arr[j+w+1]!="/";w++){
+                n2+=(arr[j+w+1]);
+                n2*=10;
+                n2c++;
+            }
+            n2/=10;
+            if(mulf==1){ 
+                t=(n1*n2);
+                t1=t;
+                arr.splice(j-n1c,n1c+n2c+1);
+
+                for(let e=0;t>0;e++){
+                    arr.splice(j-n1c,0,t%10);
+                    t=Math.floor(t/10);
+                }
+            }
+            j=0; mulf=0;
+        }
+        for(let q=0;q<plusc;q++){
+            var n1c=0;
+                var n2c=0;
+                var n1=0;
+                var n2=0;
+            for(let i=0;i<arr.length;i++){
+                if(arr[i]=="+"){
+                    addf=1;
+                    j=i;
+                    break;
+                }
+            }
+            for(let w=0;j-w!=0 && arr[j-w-1]!="+" && arr[j-w-1]!="-" && arr[j-w-1]!="*" && arr[j-w-1]!="/";w++){
+                n1+=(arr[j-w-1]*(Math.pow(10,w))); n1c++;
+            }
+            for(let w=0;j+w!=(arr.length-1)&& arr[j+w+1]!="+" && arr[j+w+1]!="-" && arr[j+w+1]!="*" && arr[j+w+1]!="/";w++){
+                n2+=(arr[j+w+1]);
+                n2*=10;
+                n2c++;
+            }
+            n2/=10;
+            if(addf==1){ 
+                t=(n1+n2);
+                t1=t;
+                arr.splice(j-n1c,n1c+n2c+1);
+                for(let e=0;t>0;e++){
+                    arr.splice(j-n1c,0,t%10);
+                    t=Math.floor(t/10);
+                }
+            }
+            j=0; addf=0;
+        }
+        for(let q=0;q<minusc;q++){
+            var n1c=0;
+                var n2c=0;
+                var n1=0;
+                var n2=0;
+            for(let i=0;i<arr.length;i++){
+                if(arr[i]=="-"){
+                    subf=1;
+                    j=i;
+                    break;
+                }
+            }
+            for(let w=0;j-w!=0 &&arr[j-w-1]!="+" && arr[j-w-1]!="-" && arr[j-w-1]!="*" && arr[j-w-1]!="/";w++){
+                n1+=(arr[j-w-1]*(Math.pow(10,w))); n1c++;
+            }
+            for(let w=0;j+w!=(arr.length-1)&& arr[j+w+1]!="+" && arr[j+w+1]!="-" && arr[j+w+1]!="*" && arr[j+w+1]!="/";w++){
+                n2+=(arr[j+w+1]);
+                n2*=10;
+                n2c++;
+            }
+            n2/=10;
+            if(subf==1){ 
+                t=(n1-n2);
+                t1=t;
+                if(t<0){
+                    t=-t;
+                }
+                }
+                arr.splice(j-n1c,n1c+n2c+1);
+
+
+                for(let e=0;t>0;e++){
+                    arr.splice(j-n1c,0,t%10);
+                    t=Math.floor(t/10);
+                }
+            }
+
+            j=0; subf=0;
+        
+            display.innerHTML= t1;
+            // for(let i=0;i<arr.length;i++){
+            //     display.innerHTML+=arr[i];
+            // }
+        }
+        )
+        C.addEventListener('click',()=>{
+            display.innerHTML=" ";
+            arr=[];
+        })
+        back.addEventListener('click',()=>{
+            let y=arr.pop();
+            display.innerHTML="";
+            for(let i=0;i<arr.length;i++){
+                display.innerHTML+=arr[i];
+            }
+        })
+
+
+    </script>
+</body>
+</html>
